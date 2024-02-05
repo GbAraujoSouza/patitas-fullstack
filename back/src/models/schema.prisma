@@ -24,6 +24,13 @@ model User {
   @@map("user")
 }
 
+model Product {
+  id    Int      @id @default(autoincrement())
+  name  String   @db.VarChar(75)
+  price Float
+  type  String   @db.VarChar(20)
+}
+
 model Pet {
   id Int @id @default(autoincrement())
   type String
