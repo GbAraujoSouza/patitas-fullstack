@@ -11,12 +11,22 @@ import AnimalCategory from '../../components/AnimalCategory';
 import BenefitCard from '../../components/BenefitCard';
 import ProductCard from '../../components/ProductCard';
 import NavBar from '../../components/NavBar';
-import productsStored from '../../constants/products.json';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useShoppingCart } from '../../context/ShoppingCartContext';
+import { useEffect, useState } from 'react';
+import productService from '../../services/productService';
 
 const Home = () => {
   const { cartQuantity } = useShoppingCart();
+
+  const [productsStored, setProductsStored] = useState([]);
+
+  useEffect(() => {
+    productService.fetchAllProducts().then((response) => {
+      console.log(response);
+      setProductsStored(response?.data);
+    });
+  }, []);
 
   return (
     <PageContainer>
@@ -70,14 +80,13 @@ const Home = () => {
       <CarouselContainer>
         {productsStored.map((product, index) => {
           if (index < 4) {
-            const { id_product, name, price, imgUrl } = product;
+            const { id, name, price } = product;
             return (
               <ProductCard
-                key={id_product}
-                id={id_product}
+                key={id}
+                id={id}
                 name={name}
                 price={formatCurrency(price)}
-                imgSrc={imgUrl}
               />
             );
           }
@@ -86,15 +95,14 @@ const Home = () => {
       <StyledH2>Rações</StyledH2>
       <CarouselContainer>
         {productsStored.map((product) => {
-          const { id_product, name, price, imgUrl, type } = product;
+          const { id, name, price, type } = product;
           if (type === 'racao') {
             return (
               <ProductCard
-                key={id_product}
-                id={id_product}
+                key={id}
+                id={id}
                 name={name}
                 price={formatCurrency(price)}
-                imgSrc={imgUrl}
               />
             );
           }
@@ -103,15 +111,14 @@ const Home = () => {
       <StyledH2>Brinquedos</StyledH2>
       <CarouselContainer>
         {productsStored.map((product) => {
-          const { id_product, name, price, imgUrl, type } = product;
+          const { id, name, price, type } = product;
           if (type === 'brinquedo') {
             return (
               <ProductCard
-                key={id_product}
-                id={id_product}
+                key={id}
+                id={id}
                 name={name}
                 price={formatCurrency(price)}
-                imgSrc={imgUrl}
               />
             );
           }
@@ -120,15 +127,14 @@ const Home = () => {
       <StyledH2>Farmácia</StyledH2>
       <CarouselContainer>
         {productsStored.map((product) => {
-          const { id_product, name, price, imgUrl, type } = product;
+          const { id, name, price, type } = product;
           if (type === 'farmacia') {
             return (
               <ProductCard
-                key={id_product}
-                id={id_product}
+                key={id}
+                id={id}
                 name={name}
                 price={formatCurrency(price)}
-                imgSrc={imgUrl}
               />
             );
           }

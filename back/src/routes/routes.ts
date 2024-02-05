@@ -3,6 +3,7 @@ import AuthController from '../controllers/authController';
 import UserController from '../controllers/userController';
 import VaccineController from '../controllers/vaccineController';
 import PetController from '../controllers/petController';
+import productController from '../controllers/productController';
 import {
   validatorUser,
   validatorPet,
@@ -16,6 +17,9 @@ const router = Router();
 
 router.post('/login', validatorLogin('login')!, AuthController.login);
 router.get('/userInfo', AuthController.getDetails);
+
+router.post('/product', productController.create);
+router.get('/products', productController.readAll);
 
 router.post('/user', validatorUser('create')!, UserController.create);
 router.get('/user/:id', validatorUser('read')!, UserController.read);

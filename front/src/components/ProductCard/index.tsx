@@ -13,15 +13,14 @@ interface CardProdutProps {
   id: number;
   name: string;
   price: string;
-  imgSrc: string;
 }
 
-const CardProdut = ({ id, imgSrc, name, price }: CardProdutProps) => {
+const CardProdut = ({ id, name, price }: CardProdutProps) => {
   const { increaseCartQuatity } = useShoppingCart();
 
   return (
     <Card>
-      <Image src={imgSrc} />
+      <Image src={`/product-images/Produto${id}-img.png`} />
       <CardBody>
         <InfoCard>
           <ProductName>{name}</ProductName>
